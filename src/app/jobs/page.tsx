@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function JobsPage() {
   return (
-    <div className="bg-slate-50/50">
-      <div className="border-b border-slate-100 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div className="min-h-[50vh]">
+      <div className="page-hero">
+        <div className="page-hero-inner">
           <SectionHeader
             eyebrow="Vakansiyalar"
             title="Talabalar uchun ish va stajlar"
@@ -21,7 +21,7 @@ export default function JobsPage() {
           />
         </div>
       </div>
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+      <div className="page-inner py-10 sm:py-12 lg:py-14">
         <JobsListing jobs={jobs} />
       </div>
     </div>

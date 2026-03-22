@@ -27,8 +27,8 @@ export function ApplyForm({ job }: ApplyFormProps) {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-emerald-100 bg-emerald-50/80 p-8 text-center shadow-sm">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg shadow-emerald-600/30">
+      <div className="rounded-3xl border border-emerald-200/70 bg-gradient-to-b from-emerald-50/90 to-white p-10 text-center shadow-card ring-1 ring-emerald-900/[0.04]">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/30">
           <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
@@ -40,7 +40,7 @@ export function ApplyForm({ job }: ApplyFormProps) {
         <button
           type="button"
           onClick={() => router.push("/jobs")}
-          className="mt-6 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
+          className="btn-primary mt-8"
         >
           Ishlar ro‘yxatiga qaytish
         </button>
@@ -141,11 +141,7 @@ export function ApplyForm({ job }: ApplyFormProps) {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-full bg-emerald-600 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
-      >
+      <button type="submit" disabled={pending} className="btn-primary w-full py-3.5">
         {pending ? "Yuborilmoqda…" : "Yuborish"}
       </button>
     </form>

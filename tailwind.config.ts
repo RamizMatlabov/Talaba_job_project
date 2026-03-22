@@ -21,6 +21,20 @@ export default {
       },
       boxShadow: {
         soft: "0 22px 48px -12px rgba(15, 23, 42, 0.12)",
+        card: "0 1px 0 0 rgba(15, 23, 42, 0.04), 0 18px 40px -24px rgba(15, 23, 42, 0.14)",
+        "card-hover":
+          "0 1px 0 0 rgba(15, 23, 42, 0.05), 0 24px 48px -20px rgba(5, 150, 105, 0.12)",
+        glow: "0 0 0 1px rgba(5, 150, 105, 0.08), 0 20px 50px -20px rgba(5, 150, 105, 0.25)",
+      },
+      fontSize: {
+        display: [
+          "3.25rem",
+          { lineHeight: "1.08", letterSpacing: "-0.03em", fontWeight: "700" },
+        ],
+        "display-sm": [
+          "2.5rem",
+          { lineHeight: "1.12", letterSpacing: "-0.025em", fontWeight: "700" },
+        ],
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out forwards",

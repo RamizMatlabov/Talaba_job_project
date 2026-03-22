@@ -37,7 +37,7 @@ export function FilterBar({
   onCityChange,
 }: FilterBarProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6">
+    <div className="space-y-5 rounded-3xl border border-slate-200/70 bg-white p-5 shadow-card ring-1 ring-slate-900/[0.03] sm:p-7">
       <div>
         <label htmlFor="job-search" className="sr-only">
           Qidiruv
@@ -54,7 +54,7 @@ export function FilterBar({
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Lavozim yoki kompaniya bo‘yicha qidiring"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-xl border border-slate-200/90 bg-slate-50/60 py-3.5 pl-10 pr-4 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 transition focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
           />
         </div>
       </div>

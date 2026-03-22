@@ -7,10 +7,7 @@ export default function JobNotFound() {
       <p className="mt-2 text-slate-600">
         Ushbu e’lon mavjud emas yoki olib tashlangan bo‘lishi mumkin.
       </p>
-      <Link
-        href="/jobs"
-        className="mt-6 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700"
-      >
+      <Link href="/jobs" className="btn-primary mt-8">
         Ishlar ro‘yxatiga qaytish
       </Link>
     </div>

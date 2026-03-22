@@ -45,9 +45,9 @@ export function JobsListing({ jobs }: JobsListingProps) {
       />
 
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/80 px-6 py-16 text-center">
-          <p className="text-lg font-semibold text-slate-900">Hech narsa topilmadi</p>
-          <p className="mt-2 text-sm text-slate-600">
+        <div className="rounded-3xl border border-dashed border-slate-300/80 bg-white px-6 py-20 text-center shadow-sm">
+          <p className="text-lg font-bold tracking-tight text-slate-900">Hech narsa topilmadi</p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600">
             Filtrlarni o‘zgartiring yoki boshqa kalit so‘z bilan qidirib ko‘ring.
           </p>
         </div>

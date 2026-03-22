@@ -66,6 +66,8 @@ const steps = [
   },
 ];
 
+const sectionY = "py-20 sm:py-24 lg:py-28";
+
 export default function HomePage() {
   const featured = getFeaturedJobs(3);
 
@@ -73,32 +75,32 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <section className="border-y border-slate-100 bg-slate-50 py-16 sm:py-20">
+      <section className={`border-y border-slate-200/60 bg-white ${sectionY}`}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
             <SectionHeader
               eyebrow="Muammo"
               title="Talabalar uchun mos ish topish hali ham murakkab"
               description="Dars, loyihalar va shaxsiy vaqt o‘rtasida muvozanat saqlash oson emas. Ko‘p e’lonlar to‘liq stavka yoki tajriba talab qiladi, smenalar esa dars jadvaliga mos kelmaydi."
             />
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-soft">
-              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+            <div className="relative rounded-3xl border border-slate-200/70 bg-gradient-to-br from-white to-slate-50/80 p-8 shadow-soft ring-1 ring-slate-900/[0.04] sm:p-10">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
                 TalabaJob yondashuvi
               </p>
-              <p className="mt-3 text-lg font-medium text-slate-900">
+              <p className="mt-4 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                 Moslashuvchan grafik, aniq e’lonlar va karyera boshlanishi uchun stajlar
               </p>
-              <ul className="mt-5 space-y-3 text-sm text-slate-600">
-                <li className="flex gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+              <ul className="mt-8 space-y-4 text-sm leading-relaxed text-slate-600">
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 ring-4 ring-emerald-500/15" />
                   Part-time va stajlar uchun alohida filtr
                 </li>
-                <li className="flex gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 ring-4 ring-emerald-500/15" />
                   Onlayn va gibrid imkoniyatlar
                 </li>
-                <li className="flex gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 ring-4 ring-emerald-500/15" />
                   Ish beruvchilar bilan shaffof aloqa
                 </li>
               </ul>
@@ -107,7 +109,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section className={`bg-slate-50/80 ${sectionY}`}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             align="center"
@@ -115,7 +117,7 @@ export default function HomePage() {
             title="Nima uchun TalabaJob?"
             description="Talabalar va yangi mutaxassislar uchun platforma — sodda, tez va ishonchli."
           />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7">
             {features.map((f) => (
               <FeatureCard key={f.title} icon={f.icon} title={f.title} description={f.description} />
             ))}
@@ -123,7 +125,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20">
+      <section className={`bg-white ${sectionY}`}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             align="center"
@@ -131,37 +133,38 @@ export default function HomePage() {
             title="Qanday ishlaydi?"
             description="Uchta oddiy qadam — keyin esa sizning karyerangiz boshlanishi."
           />
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
             {steps.map((s) => (
               <div
                 key={s.step}
-                className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="relative rounded-3xl border border-slate-200/70 bg-slate-50/40 p-8 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-emerald-200/50 hover:bg-white hover:shadow-card md:p-9"
               >
-                <span className="text-3xl font-bold text-emerald-100">{s.step}</span>
-                <h3 className="mt-3 text-lg font-semibold text-slate-900">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.text}</p>
+                <span className="inline-flex min-h-[2.5rem] min-w-[2.5rem] items-center justify-center rounded-2xl bg-white text-sm font-bold tabular-nums text-emerald-700 ring-1 ring-emerald-100 shadow-sm">
+                  {s.step}
+                </span>
+                <h3 className="mt-6 text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
+                  {s.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">{s.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section className={`border-t border-slate-200/60 bg-gradient-to-b from-slate-50/50 to-white ${sectionY}`}>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
             <SectionHeader
               eyebrow="Tanlangan"
               title="Mashhur vakansiyalar"
               description="Hozirgi haftada talabalar uchun eng ko‘p ko‘rilgan ishlar."
             />
-            <Link
-              href="/jobs"
-              className="shrink-0 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-emerald-200 hover:text-emerald-800"
-            >
+            <Link href="/jobs" className="btn-secondary-sm shrink-0 self-start sm:self-auto">
               Barcha ishlar
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 sm:gap-7 md:grid-cols-3">
             {featured.map((job) => (
               <JobCard key={job.id} job={job} />
             ))}
@@ -169,30 +172,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="pb-20">
+      <section className="pb-24 pt-4 sm:pb-28 lg:pb-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-800 px-6 py-12 text-center shadow-xl shadow-emerald-900/20 sm:px-12 sm:py-16">
-            <div className="pointer-events-none absolute -right-32 top-0 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-            <div className="pointer-events-none absolute -left-20 bottom-0 h-48 w-48 rounded-full bg-emerald-400/20 blur-2xl" />
-            <h2 className="relative text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Karyerangizni bugun boshlang
-            </h2>
-            <p className="relative mx-auto mt-3 max-w-xl text-emerald-50">
-              Minglab talaba kabi siz ham mos ish va staj toping — bir daqiqada ro‘yxatdan o‘ting.
-            </p>
-            <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link
-                href="/jobs"
-                className="inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-800 shadow-lg transition hover:-translate-y-0.5"
-              >
-                Ishlarni ko‘rish
-              </Link>
-              <Link
-                href="/apply"
-                className="inline-flex rounded-full border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
-              >
-                Ro‘yxatdan o‘tish
-              </Link>
+          <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 px-6 py-14 text-center shadow-glow sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+            <div className="bg-grid-subtle pointer-events-none absolute inset-0 opacity-90" />
+            <div className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-emerald-400/25 blur-3xl" />
+
+            <div className="relative mx-auto max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100/90">
+                Boshlash
+              </p>
+              <h2 className="mt-4 text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
+                Karyerangizni bugun boshlang
+              </h2>
+              <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-emerald-50/95 sm:text-lg">
+                Minglab talaba kabi siz ham mos ish va staj toping — bir daqiqada ro‘yxatdan o‘ting.
+              </p>
+              <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+                <Link href="/jobs" className="btn-on-dark w-full sm:w-auto">
+                  Ishlarni ko‘rish
+                </Link>
+                <Link href="/apply" className="btn-on-dark-ghost w-full sm:w-auto">
+                  Ro‘yxatdan o‘tish
+                </Link>
+              </div>
             </div>
           </div>
         </div>

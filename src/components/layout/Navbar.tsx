@@ -12,10 +12,10 @@ const links = [
 ];
 
 function linkClass(active: boolean) {
-  return `rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+  return `rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
     active
-      ? "bg-emerald-50 text-emerald-800"
-      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+      ? "bg-emerald-600/10 text-emerald-900 ring-1 ring-emerald-600/15"
+      : "text-slate-600 hover:bg-slate-100/90 hover:text-slate-900"
   }`;
 }
 
@@ -24,27 +24,25 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 shadow-sm shadow-slate-900/[0.03] backdrop-blur-xl backdrop-saturate-150">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900"
+          className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-slate-900"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-sm font-bold text-white shadow-sm shadow-emerald-600/25">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-sm font-bold text-white shadow-md shadow-emerald-600/30 ring-1 ring-white/20">
             TJ
           </span>
-          TalabaJob
+          <span className="hidden sm:inline">TalabaJob</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-0.5 md:flex" aria-label="Asosiy">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={linkClass(
-                l.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(l.href),
+                l.href === "/" ? pathname === "/" : pathname.startsWith(l.href),
               )}
             >
               {l.label}
@@ -52,29 +50,23 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Link
-            href="/jobs"
-            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-emerald-200 hover:text-emerald-800"
-          >
+        <div className="hidden items-center gap-2.5 md:flex">
+          <Link href="/jobs" className="btn-secondary-sm">
             Ishlarni ko‘rish
           </Link>
-          <Link
-            href="/apply"
-            className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-emerald-600/25 transition hover:bg-emerald-700"
-          >
+          <Link href="/apply" className="btn-primary-sm">
             Ro‘yxatdan o‘tish
           </Link>
         </div>
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-700 md:hidden"
+          className="inline-flex items-center justify-center rounded-xl border border-slate-200/90 bg-white p-2.5 text-slate-700 shadow-sm transition hover:bg-slate-50 md:hidden"
           aria-expanded={open}
           aria-label="Menyu"
           onClick={() => setOpen((v) => !v)}
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {open ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -85,7 +77,7 @@ export function Navbar() {
       </div>
 
       {open ? (
-        <div className="border-t border-slate-100 bg-white px-4 py-4 md:hidden">
+        <div className="border-t border-slate-100 bg-white/95 px-4 py-5 shadow-lg shadow-slate-900/5 backdrop-blur-md md:hidden">
           <div className="flex flex-col gap-1">
             {links.map((l) => (
               <Link
@@ -93,21 +85,28 @@ export function Navbar() {
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className={linkClass(
-                  l.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(l.href),
+                  l.href === "/" ? pathname === "/" : pathname.startsWith(l.href),
                 )}
               >
                 {l.label}
               </Link>
             ))}
-            <Link
-              href="/jobs"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-emerald-600 px-4 py-3 text-center text-sm font-semibold text-white"
-            >
-              Ishlarni ko‘rish
-            </Link>
+            <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4">
+              <Link
+                href="/jobs"
+                onClick={() => setOpen(false)}
+                className="btn-secondary w-full py-3"
+              >
+                Ishlarni ko‘rish
+              </Link>
+              <Link
+                href="/apply"
+                onClick={() => setOpen(false)}
+                className="btn-primary w-full py-3"
+              >
+                Ro‘yxatdan o‘tish
+              </Link>
+            </div>
           </div>
         </div>
       ) : null}
