@@ -1,13 +1,19 @@
 import Link from "next/link";
+import type { Locale } from "@/i18n/locales";
+import { defaultLocale } from "@/i18n/locales";
+import { localeHref } from "@/i18n/routing";
+import { t } from "@/i18n/strings";
 
 const footerLinks = [
-  { href: "/jobs", label: "Ishlar" },
-  { href: "/employers", label: "Ish beruvchilar" },
-  { href: "/about", label: "Biz haqimizda" },
-  { href: "/apply", label: "Ariza" },
+  { href: "/jobs", labelKey: "nav.jobs" },
+  { href: "/employers", labelKey: "nav.employers" },
+  { href: "/about", labelKey: "nav.about" },
+  { href: "/apply", labelKey: "footer.link.apply" },
 ];
 
-export function Footer() {
+export function Footer({ locale }: { locale?: Locale }) {
+  const effectiveLocale = locale ?? defaultLocale;
+
   return (
     <footer className="border-t border-slate-200/80 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
@@ -20,25 +26,24 @@ export function Footer() {
               TalabaJob
             </div>
             <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              O‘zbekiston talabalari uchun qisman bandlik, staj va boshlang‘ich
-              karyera imkoniyatlari.
+              {t(effectiveLocale, "footer.tagline")}
             </p>
             <p className="mt-4 inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
-              Demo MVP · inkubator taqdimoti
+              {t(effectiveLocale, "footer.badge")}
             </p>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Tezkor havolalar
+              {t(effectiveLocale, "footer.quickLinks")}
             </p>
             <ul className="mt-4 space-y-3">
               {footerLinks.map((l) => (
                 <li key={l.href}>
                   <Link
-                    href={l.href}
+                    href={localeHref(effectiveLocale, l.href)}
                     className="text-sm font-medium text-slate-600 underline-offset-4 transition hover:text-emerald-800 hover:underline"
                   >
-                    {l.label}
+                    {t(effectiveLocale, l.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -46,7 +51,7 @@ export function Footer() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Aloqa
+              {t(effectiveLocale, "footer.contact")}
             </p>
             <div className="mt-4 space-y-2 text-sm text-slate-600">
               <p>
@@ -65,12 +70,14 @@ export function Footer() {
                   +998 33 433 44 04
                 </a>
               </p>
-              <p className="text-slate-500">Samarqand, O‘zbekiston</p>
+              <p className="text-slate-500">{t(effectiveLocale, "footer.location")}</p>
             </div>
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-3 border-t border-slate-200/80 pt-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} TalabaJob. Barcha huquqlar himoyalangan.</p>
+          <p>
+            © {new Date().getFullYear()} TalabaJob. {t(effectiveLocale, "footer.copyright")}
+          </p>
         </div>
       </div>
     </footer>

@@ -1,25 +1,31 @@
 "use client";
 
 import type { JobType, City } from "@/types/job";
+import type { Locale } from "@/i18n/locales";
+import { defaultLocale } from "@/i18n/locales";
+import { t } from "@/i18n/strings";
 
-export const JOB_TYPE_OPTIONS: { value: JobType | "all"; label: string }[] = [
-  { value: "all", label: "Barchasi" },
-  { value: "Part-time", label: "Part-time" },
-  { value: "Internship", label: "Staj" },
-  { value: "Remote", label: "Remote" },
-  { value: "Full-time", label: "To‘liq stavka" },
+type OptionKeyed<T extends string> = { value: T | "all"; labelKey: string };
+
+const JOB_TYPE_OPTIONS: OptionKeyed<JobType>[] = [
+  { value: "all", labelKey: "filters.jobType.all" },
+  { value: "Part-time", labelKey: "filters.jobType.Part-time" },
+  { value: "Internship", labelKey: "filters.jobType.Internship" },
+  { value: "Remote", labelKey: "filters.jobType.Remote" },
+  { value: "Full-time", labelKey: "filters.jobType.Full-time" },
 ];
 
-export const CITY_OPTIONS: { value: City | "all"; label: string }[] = [
-  { value: "all", label: "Barcha shaharlar" },
-  { value: "Toshkent", label: "Toshkent" },
-  { value: "Samarqand", label: "Samarqand" },
-  { value: "Buxoro", label: "Buxoro" },
-  { value: "Farg‘ona", label: "Farg‘ona" },
-  { value: "Onlayn", label: "Onlayn" },
+const CITY_OPTIONS: OptionKeyed<City>[] = [
+  { value: "all", labelKey: "filters.city.all" },
+  { value: "Toshkent", labelKey: "filters.city.Toshkent" },
+  { value: "Samarqand", labelKey: "filters.city.Samarqand" },
+  { value: "Buxoro", labelKey: "filters.city.Buxoro" },
+  { value: "Farg‘ona", labelKey: "filters.city.Farg‘ona" },
+  { value: "Onlayn", labelKey: "filters.city.Onlayn" },
 ];
 
 interface FilterBarProps {
+  locale?: Locale;
   search: string;
   onSearchChange: (v: string) => void;
   jobType: JobType | "all";
@@ -29,6 +35,7 @@ interface FilterBarProps {
 }
 
 export function FilterBar({
+  locale,
   search,
   onSearchChange,
   jobType,
@@ -36,11 +43,12 @@ export function FilterBar({
   city,
   onCityChange,
 }: FilterBarProps) {
+  const effectiveLocale = locale ?? defaultLocale;
   return (
     <div className="space-y-5 rounded-3xl border border-slate-200/70 bg-white p-5 shadow-card ring-1 ring-slate-900/[0.03] sm:p-7">
       <div>
         <label htmlFor="job-search" className="sr-only">
-          Qidiruv
+          {t(effectiveLocale, "filters.search.sr")}
         </label>
         <div className="relative">
           <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400">
@@ -53,7 +61,7 @@ export function FilterBar({
             type="search"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Lavozim yoki kompaniya bo‘yicha qidiring"
+            placeholder={t(effectiveLocale, "filters.search.placeholder")}
             className="w-full rounded-xl border border-slate-200/90 bg-slate-50/60 py-3.5 pl-10 pr-4 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 transition focus:border-emerald-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
           />
         </div>
@@ -62,7 +70,7 @@ export function FilterBar({
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
           <label htmlFor="filter-type" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Ish turi
+            {t(effectiveLocale, "filters.jobType.label")}
           </label>
           <select
             id="filter-type"
@@ -72,14 +80,14 @@ export function FilterBar({
           >
             {JOB_TYPE_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
-                {o.label}
+                {t(effectiveLocale, o.labelKey)}
               </option>
             ))}
           </select>
         </div>
         <div className="flex-1">
           <label htmlFor="filter-city" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Hudud
+            {t(effectiveLocale, "filters.city.label")}
           </label>
           <select
             id="filter-city"
@@ -89,7 +97,7 @@ export function FilterBar({
           >
             {CITY_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
-                {o.label}
+                {t(effectiveLocale, o.labelKey)}
               </option>
             ))}
           </select>

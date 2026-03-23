@@ -3,13 +3,19 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Job } from "@/types/job";
+import type { Locale } from "@/i18n/locales";
+import { defaultLocale } from "@/i18n/locales";
+import { t } from "@/i18n/strings";
+import { localeHref } from "@/i18n/routing";
 
 interface ApplyFormProps {
   job?: Job | null;
+  locale?: Locale;
 }
 
-export function ApplyForm({ job }: ApplyFormProps) {
+export function ApplyForm({ job, locale }: ApplyFormProps) {
   const router = useRouter();
+  const effectiveLocale = locale ?? defaultLocale;
   const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
 
@@ -33,16 +39,18 @@ export function ApplyForm({ job }: ApplyFormProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="mt-4 text-xl font-bold text-slate-900">Rahmat!</h2>
+        <h2 className="mt-4 text-xl font-bold text-slate-900">
+          {t(effectiveLocale, "apply.thanks.title")}
+        </h2>
         <p className="mt-2 text-slate-700">
-          Arizangiz yuborildi. Tez orada siz bilan bog‘lanamiz.
+          {t(effectiveLocale, "apply.thanks.body")}
         </p>
         <button
           type="button"
-          onClick={() => router.push("/jobs")}
+          onClick={() => router.push(localeHref(effectiveLocale, "/jobs"))}
           className="btn-primary mt-8"
         >
-          Ishlar ro‘yxatiga qaytish
+          {t(effectiveLocale, "apply.thanks.backToJobs")}
         </button>
       </div>
     );
@@ -54,28 +62,28 @@ export function ApplyForm({ job }: ApplyFormProps) {
         <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm">
           <p className="font-semibold text-slate-900">{job.title}</p>
           <p className="text-slate-600">
-            {job.company} · {job.location}
+            {job.company} · {t(effectiveLocale, `filters.city.${job.location}`)}
           </p>
         </div>
       ) : null}
 
       <div>
         <label htmlFor="fullName" className="text-sm font-medium text-slate-700">
-          To‘liq ism familiya
+          {t(effectiveLocale, "apply.form.fullName")}
         </label>
         <input
           id="fullName"
           name="fullName"
           required
           autoComplete="name"
-          placeholder="Masalan: Aziza Karimova"
+          placeholder={t(effectiveLocale, "apply.form.placeholder.fullName")}
           className={fieldClass}
         />
       </div>
 
       <div>
         <label htmlFor="phone" className="text-sm font-medium text-slate-700">
-          Telefon raqami
+          {t(effectiveLocale, "apply.form.phone")}
         </label>
         <input
           id="phone"
@@ -83,66 +91,73 @@ export function ApplyForm({ job }: ApplyFormProps) {
           type="tel"
           required
           autoComplete="tel"
-          placeholder="+998 __ ___ __ __"
+          placeholder={t(effectiveLocale, "apply.form.placeholder.phone")}
           className={fieldClass}
         />
       </div>
 
       <div>
         <label htmlFor="telegram" className="text-sm font-medium text-slate-700">
-          Telegram username
+          {t(effectiveLocale, "apply.form.telegram")}
         </label>
         <input
           id="telegram"
           name="telegram"
-          placeholder="@username"
+          placeholder={t(effectiveLocale, "apply.form.placeholder.telegram")}
           className={fieldClass}
         />
       </div>
 
       <div>
         <label htmlFor="university" className="text-sm font-medium text-slate-700">
-          Oliy ta’lim muassasasi
+          {t(effectiveLocale, "apply.form.university")}
         </label>
         <input
           id="university"
           name="university"
           required
-          placeholder="Masalan: Toshkent davlat iqtisodiyot universiteti"
+          placeholder={t(effectiveLocale, "apply.form.placeholder.university")}
           className={fieldClass}
         />
       </div>
 
       <div>
         <label htmlFor="message" className="text-sm font-medium text-slate-700">
-          Qisqa xabar
+          {t(effectiveLocale, "apply.form.message")}
         </label>
         <textarea
           id="message"
           name="message"
           rows={4}
-          placeholder="O‘zingiz va qiziqishingiz haqida qisqacha yozing"
+          placeholder={t(effectiveLocale, "apply.form.placeholder.message")}
           className={`${fieldClass} resize-y min-h-[100px]`}
         />
       </div>
 
       <div>
         <label htmlFor="cv" className="text-sm font-medium text-slate-700">
-          CV (demo)
+          {t(effectiveLocale, "apply.form.cv")}
         </label>
         <div className="mt-1 flex items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 px-4 py-8 text-center transition hover:border-emerald-300">
           <div>
             <input id="cv" name="cv" type="file" className="sr-only" accept=".pdf,.doc,.docx" />
             <label htmlFor="cv" className="cursor-pointer text-sm text-slate-600">
-              <span className="font-semibold text-emerald-700">Fayl tanlang</span> yoki bu yerga torting
+              <span className="font-semibold text-emerald-700">
+                {t(effectiveLocale, "apply.form.cv.filePicker")}
+              </span>{" "}
+              {t(effectiveLocale, "apply.form.cv.dropHint")}
             </label>
-            <p className="mt-1 text-xs text-slate-500">PDF yoki Word — max. 5 MB (demo rejim)</p>
+            <p className="mt-1 text-xs text-slate-500">
+              {t(effectiveLocale, "apply.form.cv.helper")}
+            </p>
           </div>
         </div>
       </div>
 
       <button type="submit" disabled={pending} className="btn-primary w-full py-3.5">
-        {pending ? "Yuborilmoqda…" : "Yuborish"}
+        {pending
+          ? t(effectiveLocale, "apply.form.submitting")
+          : t(effectiveLocale, "apply.form.submit")}
       </button>
     </form>
   );

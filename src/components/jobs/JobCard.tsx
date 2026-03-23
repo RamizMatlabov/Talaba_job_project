@@ -1,8 +1,12 @@
 import Link from "next/link";
 import type { Job } from "@/types/job";
+import type { Locale } from "@/i18n/locales";
+import { t, cityLabel, jobTypeLabel } from "@/i18n/strings";
+import { localeHref } from "@/i18n/routing";
 
 interface JobCardProps {
   job: Job;
+  locale?: Locale;
 }
 
 function companyInitials(name: string) {
@@ -13,7 +17,8 @@ function companyInitials(name: string) {
   return name.slice(0, 2).toUpperCase();
 }
 
-export function JobCard({ job }: JobCardProps) {
+export function JobCard({ job, locale }: JobCardProps) {
+  const effectiveLocale = locale ?? "uz";
   const initials = companyInitials(job.company);
 
   return (
@@ -39,7 +44,7 @@ export function JobCard({ job }: JobCardProps) {
                 <p className="mt-1 text-sm font-medium text-slate-600">{job.company}</p>
               </div>
               <span className="shrink-0 rounded-full border border-slate-200/90 bg-slate-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-700">
-                {job.type}
+                {jobTypeLabel(effectiveLocale, job.type)}
               </span>
             </div>
           </div>
@@ -65,21 +70,23 @@ export function JobCard({ job }: JobCardProps) {
           <span className="text-slate-300" aria-hidden>
             ·
           </span>
-          <span className="text-slate-600">{job.location}</span>
+          <span className="text-slate-600">
+            {cityLabel(effectiveLocale, job.location)}
+          </span>
         </div>
 
         <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
           <Link
-            href={`/apply?jobId=${job.id}`}
+            href={localeHref(effectiveLocale, `/apply?jobId=${job.id}`)}
             className="btn-primary-sm flex-1 py-3 sm:py-2.5"
           >
-            Ariza berish
+            {t(effectiveLocale, "jobCard.apply")}
           </Link>
           <Link
-            href={`/jobs/${job.id}`}
+            href={localeHref(effectiveLocale, `/jobs/${job.id}`)}
             className="btn-secondary-sm flex-1 py-3 sm:py-2.5"
           >
-            Batafsil
+            {t(effectiveLocale, "jobCard.details")}
           </Link>
         </div>
       </div>

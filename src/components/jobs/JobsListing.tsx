@@ -4,8 +4,12 @@ import { useDeferredValue, useMemo, useState } from "react";
 import type { Job, JobType, City } from "@/types/job";
 import { FilterBar } from "./FilterBar";
 import { JobCard } from "./JobCard";
+import type { Locale } from "@/i18n/locales";
+import { defaultLocale } from "@/i18n/locales";
+import { t } from "@/i18n/strings";
 
 interface JobsListingProps {
+  locale?: Locale;
   jobs: Job[];
 }
 
@@ -13,7 +17,8 @@ function normalize(s: string) {
   return s.toLowerCase().trim();
 }
 
-export function JobsListing({ jobs }: JobsListingProps) {
+export function JobsListing({ locale, jobs }: JobsListingProps) {
+  const effectiveLocale = locale ?? defaultLocale;
   const [search, setSearch] = useState("");
   const [jobType, setJobType] = useState<JobType | "all">("all");
   const [city, setCity] = useState<City | "all">("all");
@@ -36,6 +41,7 @@ export function JobsListing({ jobs }: JobsListingProps) {
   return (
     <div className="space-y-8">
       <FilterBar
+        locale={effectiveLocale}
         search={search}
         onSearchChange={setSearch}
         jobType={jobType}
@@ -46,15 +52,20 @@ export function JobsListing({ jobs }: JobsListingProps) {
 
       {filtered.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-slate-300/80 bg-white px-6 py-20 text-center shadow-sm">
-          <p className="text-lg font-bold tracking-tight text-slate-900">Hech narsa topilmadi</p>
+          <p className="text-lg font-bold tracking-tight text-slate-900">
+            {t(effectiveLocale, "jobsListing.noResults.title")}
+          </p>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-            Filtrlarni o‘zgartiring yoki boshqa kalit so‘z bilan qidirib ko‘ring.
+            {t(
+              effectiveLocale,
+              "jobsListing.noResults.description",
+            )}
           </p>
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((job) => (
-            <JobCard key={job.id} job={job} />
+            <JobCard key={job.id} job={job} locale={effectiveLocale} />
           ))}
         </div>
       )}

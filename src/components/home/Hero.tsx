@@ -1,6 +1,18 @@
 import Link from "next/link";
+import type { Locale } from "@/i18n/locales";
+import { t, cityLabel, jobTypeLabel } from "@/i18n/strings";
+import { localeHref } from "@/i18n/routing";
+import { getJobById } from "@/data/jobs";
 
-export function Hero() {
+interface HeroProps {
+  locale: Locale;
+}
+
+export function Hero({ locale }: HeroProps) {
+  const smm = getJobById("smm-assistant-tashkent", locale);
+  const frontend = getJobById("frontend-intern-remote", locale);
+  const callCenter = getJobById("call-center-tashkent", locale);
+
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_100%_-20%,rgba(16,185,129,0.14),transparent_55%)]" />
@@ -14,28 +26,32 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            Talabalar uchun ish platformasi
+            {t(locale, "home.hero.pill")}
           </p>
           <h1 className="mt-8 text-balance text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-display-sm xl:text-display">
-            Talabalar uchun ish topish platformasi
+            {t(locale, "home.hero.title")}
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            Part-time ishlar, stajirovkalar va junior imkoniyatlar bir joyda —
-            moslashuvchan grafik, tekshirilgan ish beruvchilar va bir marta bosish
-            bilan ariza.
+            {t(locale, "home.hero.description")}
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="/jobs" className="btn-primary w-full sm:w-auto">
-              Ishlarni ko‘rish
+            <Link
+              href={localeHref(locale, "/jobs")}
+              className="btn-primary w-full sm:w-auto"
+            >
+              {t(locale, "nav.cta.jobs")}
             </Link>
-            <Link href="/apply" className="btn-secondary w-full sm:w-auto">
-              Ro‘yxatdan o‘tish
+            <Link
+              href={localeHref(locale, "/apply")}
+              className="btn-secondary w-full sm:w-auto"
+            >
+              {t(locale, "nav.cta.apply")}
             </Link>
           </div>
           <dl className="mt-12 grid grid-cols-3 gap-3 rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:max-w-lg sm:gap-4 sm:p-6">
             <div className="border-r border-slate-200/80 pr-3 sm:pr-4">
               <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:text-xs">
-                Talabalar
+                {t(locale, "home.hero.stats.students")}
               </dt>
               <dd className="mt-1.5 text-xl font-bold tabular-nums text-slate-900 sm:text-2xl">
                 12k+
@@ -43,7 +59,7 @@ export function Hero() {
             </div>
             <div className="border-r border-slate-200/80 px-2 text-center sm:px-4">
               <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:text-xs">
-                Vakansiyalar
+                {t(locale, "home.hero.stats.jobs")}
               </dt>
               <dd className="mt-1.5 text-xl font-bold tabular-nums text-slate-900 sm:text-2xl">
                 480+
@@ -51,7 +67,7 @@ export function Hero() {
             </div>
             <div className="pl-3 text-right sm:pl-4 sm:text-left">
               <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:text-xs">
-                Hamkorlar
+                {t(locale, "home.hero.stats.partners")}
               </dt>
               <dd className="mt-1.5 text-xl font-bold tabular-nums text-slate-900 sm:text-2xl">
                 90+
@@ -69,17 +85,17 @@ export function Hero() {
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
-                    Bugungi imkoniyatlar
+                    {t(locale, "home.hero.opportunities")}
                   </p>
                   <p className="mt-2 text-lg font-bold leading-snug tracking-tight text-slate-900 sm:text-xl">
-                    SMM yordamchisi
+                    {smm?.title ?? "SMM"}
                   </p>
                   <p className="mt-1.5 text-sm leading-snug text-slate-700">
-                    Digital Grow Agency · Toshkent
+                    {smm?.company} · {smm ? cityLabel(locale, smm.location) : ""}
                   </p>
                 </div>
                 <span className="shrink-0 rounded-full border border-emerald-200/80 bg-emerald-50 px-3 py-1.5 text-[11px] font-semibold text-emerald-900">
-                  Part-time
+                  {smm ? jobTypeLabel(locale, smm.type) : ""}
                 </span>
               </div>
 
@@ -90,12 +106,15 @@ export function Hero() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold leading-snug text-slate-900">
-                      Frontend stajyor
+                      {frontend?.title ?? "Frontend"}
                     </p>
-                    <p className="text-xs text-slate-600">Onlayn · Remote</p>
+                    <p className="text-xs text-slate-600">
+                      {frontend ? cityLabel(locale, frontend.location) : ""} ·{" "}
+                      {frontend ? jobTypeLabel(locale, frontend.type) : ""}
+                    </p>
                   </div>
                   <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-800 ring-1 ring-emerald-200/80">
-                    Yangi
+                    {t(locale, "home.hero.tag.new")}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 rounded-xl p-2.5">
@@ -104,9 +123,12 @@ export function Hero() {
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-semibold leading-snug text-slate-900">
-                      Call-markaz
+                      {callCenter?.title ?? "Call Center"}
                     </p>
-                    <p className="text-xs text-slate-600">Smena · Flexible</p>
+                    <p className="text-xs text-slate-600">
+                      {t(locale, "home.hero.tag.shiftPrefix")} ·{" "}
+                      {t(locale, "tags.Flexible")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -114,10 +136,10 @@ export function Hero() {
               <div className="flex items-center justify-between gap-3 rounded-2xl border border-dashed border-emerald-300/70 bg-gradient-to-r from-emerald-50/90 to-white/70 px-4 py-4 sm:px-5">
                 <div className="min-w-0">
                   <p className="text-xs font-semibold leading-snug text-emerald-950 sm:text-sm">
-                    Bir marta bosish — ariza yuborildi
+                    {t(locale, "home.hero.bottom.oneClick")}
                   </p>
                   <p className="mt-1 text-xs leading-snug text-emerald-900/80">
-                    Tez javob, shaffof jarayon
+                    {t(locale, "home.hero.bottom.response")}
                   </p>
                 </div>
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-600 shadow-glow">
